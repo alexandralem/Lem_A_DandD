@@ -5,6 +5,8 @@
 			puzzlePieces = document.querySelectorAll(".puzzle-pieces img"),
 			dropZones = document.querySelectorAll(".drop-zone");
 
+	const puzzlePaths = ["topLeft", "topRight", "bottomLeft", "bottomRight"]
+
 	/* bottomNav collects all of the image elements into an array-like container that looks like this
 	[
 		<img src="images/topLeft0.jpg" class="puzzle-image" alt="top left">
@@ -16,10 +18,14 @@
 
 	// add event handing here
 
-	function changeBgImg () {
+	function changeImgSet () {
 		// debugger;
 		// the "this" keyword refers to the element that triggers this function (the nav button we click with the custom data attribute of bgref)
-		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgref}.jpg)`
+		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgref}.jpg)`;
+		//loop through all of the small draggable images and change their src attribute with js
+		puzzlePaths.forEach((img, index) => {
+			puzzlePieces[index].src = `images/${img + this.dataset.bgref}.jpg`
+		});// update each image's src one at a time)
 	}
 
 	function dragStarted(event) {
@@ -50,7 +56,7 @@
 		console.log('dropped on me');
 	}
 
-	bottomNav.forEach(thumb => thumb.addEventListener("click", changeBgImg));
+	bottomNav.forEach(thumb => thumb.addEventListener("click", changeImgSet));
 
 	// listen for the dragstarted event on the puzzlePieces
 	puzzlePieces.forEach(piece => piece.addEventListener("dragstart", dragStarted));

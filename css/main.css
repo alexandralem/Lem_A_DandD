@@ -32,8 +32,8 @@ body {
 
 }
 
-.puzzle-board { 
-	width:600px; 
+.puzzle-board {
+	width:600px;
 	background-image: url('../images/backGround0.jpg');
 	background-repeat: no-repeat;
 }
@@ -62,6 +62,17 @@ body {
 	position: relative;
 }
 
+/* reset drop zone images */
+.drop-zone img {
+	width: 80% !important;
+	float: none;
+	position: absolute;
+	padding: 0;
+}
+/* place each image where it needs to go*/
+.tl img { right: 0; bottom: 0;}
+.tr img { bottom: 0;}
+.bl img { right: 0;}
 
 header {
 	position: relative;

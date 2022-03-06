@@ -3,7 +3,8 @@
 	let bottomNav = document.querySelectorAll("#buttonHolder img"),
 			gameBoard = document.querySelector(".puzzle-board"),
 			puzzlePieces = document.querySelectorAll(".puzzle-pieces img"),
-			dropZones = document.querySelectorAll(".drop-zone");
+			dropZones = document.querySelectorAll(".drop-zone"),
+			dragZone = document.querySelector(".puzzle-pieces");
 
 
 
@@ -59,11 +60,30 @@
 		this.appendChild(document.querySelector(`#${droppedEl}`));
 	}
 
-	function resetPieces(event) {
+// don't know how to implement a loop and give a name to a function to invoke it from thumbnails at the same time
+	function movingBack(event) {
+			dropZones.forEach(parent => {
+				if (parent.childElementCount > 0) {
+					let pieceUsed = parent.firstElementChild;
+					event.dataTransfer.setData('currentItem', event.target.id);
+					dragZone.appendChild(document.querySelector(`#${pieceUsed}`))
+			}
+		});
+		}
 
-	}
+			//if (dropZones.childElementCount > 0) {
+				//let piecesUsed = dropZones.children;
+				//dragZone.appendChild(piecesUsed);
+			//}
+		//}
 
-	bottomNav.forEach(thumb => thumb.addEventListener("click", changeImgSet, resetPieces));
+	//dropZones.forEach(zone => {
+		//if (zone.childElementCount > 0) {
+
+	//});
+
+
+	bottomNav.forEach(thumb => thumb.addEventListener("click", changeImgSet, movingBack));
 
 	// listen for the dragstarted event on the puzzlePieces
 	puzzlePieces.forEach(piece => piece.addEventListener("dragstart", dragStarted));
@@ -73,5 +93,6 @@
 		zone.addEventListener("dragover", allowDragOver);
 		zone.addEventListener("drop", allowDrop);
 	});
+
 
 })();

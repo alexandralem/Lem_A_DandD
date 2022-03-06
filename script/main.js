@@ -5,6 +5,11 @@
 			puzzlePieces = document.querySelectorAll(".puzzle-pieces img"),
 			dropZones = document.querySelectorAll(".drop-zone");
 
+
+
+	//var piecesCount = document.getElementById(".drop-zone");
+	//var piecesCount = document.childElementCount(".puzzle-image");
+
 	const puzzlePaths = ["topLeft", "topRight", "bottomLeft", "bottomRight"]
 
 	/* bottomNav collects all of the image elements into an array-like container that looks like this
@@ -40,23 +45,25 @@
 		console.log('dragged over me');
 		// retrieve the dragged element using dataTransfer object
 		// this was set in the drag event using the set data method
-		let droppedEl = event.dataTransfer.getData('currentItem');
-		console.log(droppedEl);
-
-		// appendChild is a built-in js function that adds an element to another as a child
-		// move the dragged element into the dropzone
-		// appendChild is a built-in js function that adds an element to another as a child
-		this.appendChild(document.querySelector(`#${droppedEl}`));
-
 	}
 
 	function allowDrop(event) {
 		// turn off the default browser behaviour -> follow our instructions instead of what a browser would normally do on drop
 		event.preventDefault();
 		console.log('dropped on me');
+		if (this.childElementCount > 0) {
+			return;
+		}
+		let droppedEl = event.dataTransfer.getData('currentItem');
+		console.log(droppedEl);
+		this.appendChild(document.querySelector(`#${droppedEl}`));
 	}
 
-	bottomNav.forEach(thumb => thumb.addEventListener("click", changeImgSet));
+	function resetPieces(event) {
+
+	}
+
+	bottomNav.forEach(thumb => thumb.addEventListener("click", changeImgSet, resetPieces));
 
 	// listen for the dragstarted event on the puzzlePieces
 	puzzlePieces.forEach(piece => piece.addEventListener("dragstart", dragStarted));
